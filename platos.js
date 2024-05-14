@@ -1,4 +1,4 @@
-class Carta extends HTMLElement {
+class Platos extends HTMLElement {
   constructor() {
     super();
   }
@@ -38,4 +38,4 @@ class Carta extends HTMLElement {
   }
 }
 
-window.customElements.define('carta-menu', Carta);
+window.customElements.define('platos-carta', Platos);
