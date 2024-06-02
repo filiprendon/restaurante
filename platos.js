@@ -1,41 +1,26 @@
-class Platos extends HTMLElement {
+class Plato extends HTMLElement {
   constructor() {
-    super();
-  }
-
-  connectedCallback() {
-    this.innerHTML = `
-      <h1>Restaurante SlipSlix</h1>
-      <div id="menu">
-        <h2>Primers</h2>
-        <div class="plat">
-          <h3>Nom del plat</h3>
-          <img src="imatge.jpg" alt="Imatge del plat">
-          <p>Preu: 10€</p>
-          <p>Al·lèrgens: Gluten</p>
-          <button class="afegir-plat">Afegir a la comanda</button>
-        </div>
-        <!-- Altres plats aquí -->
-      </div>
-    `;
-    this.registrarListeners();
-  }
-
-  registrarListeners() {
-    const plats = this.querySelectorAll('.plat');
-    plats.forEach(plat => {
-      plat.querySelector('.afegir-plat').addEventListener('click', () => {
-        const nomPlat = plat.querySelector('h3').textContent;
-        const imatgePlat = plat.querySelector('img').src;
-        const preuPlat = plat.querySelector('p:nth-of-type(1)').textContent.split(":")[1].trim();
-        const allèrgensPlat = plat.querySelector('p:nth-of-type(2)').textContent.split(":")[1].trim();
-
-        const detallsPlat = { nom: nomPlat, imatge: imatgePlat, preu: preuPlat, allèrgens: allèrgensPlat };
-        const event = new CustomEvent('plat-afegit', { detail: detallsPlat });
-        this.dispatchEvent(event);
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+          <div class="plato">
+              <img src="" alt="Imagen del plato">
+              <h3 class="nombre">Filip</h3>
+              <p class="precio">20</p>
+              <p class="alergenos">Lactosa</p>
+              <button class="agregar">Agregar a la comanda</button>
+          </div>
+      `;
+      // Evento para agregar el plato a la comanda
+      this.shadowRoot.querySelector('.agregar').addEventListener('click', () => {
+          const plato = {
+              nombre: this.getAttribute('nombre'),
+              imagen: this.getAttribute('imagen'),
+              precio: this.getAttribute('precio')
+          };
+          const agregarEvento = new CustomEvent('agregarPlato', { detail: plato });
+          this.dispatchEvent(agregarEvento);
       });
-    });
   }
 }
-
-window.customElements.define('platos-carta', Platos);
+customElements.define('app-plato', Plato);
