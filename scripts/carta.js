@@ -17,7 +17,6 @@ class Carta extends HTMLElement {
     connectedCallback() {
         this.agregarPlato("Plato 1", "imagen1.jpg", "10");
         this.agregarPlato("Plato 2", "imagen2.jpg", "15");
-        // Agrega más platos según sea necesario
     }
 
     agregarPlato(nombre, imagen, precio) {
